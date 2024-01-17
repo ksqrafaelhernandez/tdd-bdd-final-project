@@ -38,3 +38,19 @@ Scenario: Create a Product
     And I should see "True" in the "Available" dropdown
     And I should see "Tools" in the "Category" dropdown
     And I should see "34.95" in the "Price" field
+
+Scenario: Read a Product
+When keyword to specify to start on the “Home Page”
+And keyword to describe the action of setting the “Name” to “Hat”
+And keyword to describe the action of clicking the “Search” button
+Then keyword to describe that they should see the message “Success”
+When keyword to specify copy the “Id” field
+And keyword to describe the action of pressing the “Clear” button
+And keyword to describe the action of pasting the “Id” field
+And keyword to describe the action of pressing the “Retrieve” button
+Then keyword to describe that they should see the message “Success”
+And keyword to state that they should see “Hat” in the “Name” field
+And keyword to state that they should see “A red fedora” in the “Description” field
+And keyword to state that they should see “True” in the “Available” dropdown
+And keyword to state that they should see “Cloths” in the “Category” dropdown
+And keyword to state that they should see “59.95” in the “Price” field
