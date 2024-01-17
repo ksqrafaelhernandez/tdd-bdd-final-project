@@ -40,17 +40,94 @@ Scenario: Create a Product
     And I should see "34.95" in the "Price" field
 
 Scenario: Read a Product
-When keyword to specify to start on the “Home Page”
-And keyword to describe the action of setting the “Name” to “Hat”
-And keyword to describe the action of clicking the “Search” button
-Then keyword to describe that they should see the message “Success”
-When keyword to specify copy the “Id” field
-And keyword to describe the action of pressing the “Clear” button
-And keyword to describe the action of pasting the “Id” field
-And keyword to describe the action of pressing the “Retrieve” button
-Then keyword to describe that they should see the message “Success”
-And keyword to state that they should see “Hat” in the “Name” field
-And keyword to state that they should see “A red fedora” in the “Description” field
-And keyword to state that they should see “True” in the “Available” dropdown
-And keyword to state that they should see “Cloths” in the “Category” dropdown
-And keyword to state that they should see “59.95” in the “Price” field
+    When I visit the "Home Page"
+    And I set the "Name" to "Hat"
+    And I press the "Search" button
+    Then I should see the message "Success"
+    When I copy the "Id" field
+    And I press the "Clear" button
+    And I paste the "Id" field
+    And I press the "Retrieve" button
+    Then I should see the message "Success"
+    And I should see "Hat" in the "Name" field
+    And I should see "A red fedora" in the "Description" field
+    And I should see "True" in the "Available" dropdown
+    And I should see "Cloths" in the "Category" dropdown
+    And I should see "59.95" in the "Price" field
+
+Scenario: Update a Product
+    When I visit the "Home Page"
+    And I set the "Name" to "Hat"
+    And I press the "Search" button
+    Then I should see the message "Success"
+    And I should see "A red fedora" in the "Description" field
+    When I set the "Name" to "Red"
+    And I press the "Update" button
+    Then I should see the message "Success"
+    When I copy the "Id" field
+    And I press the "Clear" button
+    And I paste the "Id" field
+    And I press the "Retrieve" button
+    Then I should see the message "Success"
+    And I should see "Red" in the "Name" field
+    When I press the "Clear" button
+    And I press the "Search" button
+    Then I should see the message "Success"
+    And I should see "fedora" in the results
+    And I should not see "Hat" in the results
+
+Scenario: Delete a Product
+    When I visit the "Home Page"
+    And I set the "Name" to "Shoes"
+    And I press the "Search" button
+    Then I should see the message "Success"
+    And I should see "Blue shoes" in the "Description" field
+    When I copy the "Id" field
+    And I press the "Clear" button
+    And I paste the "Id" field
+    And I press the "Delete" button
+    Then I should see the message "Product has been Deleted!"
+    When I press the "Clear" button
+    And I press the "Search" button
+    Then I should see the message "Success"
+    And I should not see "Shoes" in the results
+
+Scenario: List all products
+    When I visit the "Home Page"
+    And I press the "Clear" button
+    And I press the "Search" button
+    Then I should see the message "Success"
+    And I should see "Hat" in the results
+    And I should see "Big Mac" in the results
+    And I should see "Sheets" in the results
+    And I should see "Shoes" in the results
+
+Scenario: Search by category
+    When I visit the "Home Page"
+    And I press the "Clear" button
+    And I select "Food" in the "Category" dropdown
+    And I press the "Search" button
+    Then I should see the message "Success"
+    And I should see "Big Mac" in the results
+    And I should not see "Hat" in the results
+    And I should not see "Shoes" in the results
+    And I should not see "Sheets" in the results
+
+Scenario: Search by availability
+    When I visit the "Home Page"
+    And I press the "Clear" button
+    And I select "True" in the "Available" dropdown
+    And I press the "Search" button
+    Then I should see the message "Success"
+    And I should see "Big Mac" in the results
+    And I should see "Hat" in the results
+    And I should see "Sheets" in the results
+    And I should not see "Shoes" in the results
+
+Scenario: Search by name
+    When I visit the "Home Page"
+    And I set the "Name" to "Sheets"
+    And I press the "Search" button
+    Then I should see the message "Success"
+    And I should see "Sheets" in the "Name" field
+    And I should see "Full bed sheets" in the "Description" field
